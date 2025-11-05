@@ -1,0 +1,47 @@
+<!-- view.html -->
+{% extends "base.html" %}
+{% block title %}View Item{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="mb-0">Item Details</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Stock Code:</strong></div>
+                    <div class="col-sm-8">{{ item.stock_code }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Quantity:</strong></div>
+                    <div class="col-sm-8">{{ item.quantity }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Price:</strong></div>
+                    <div class="col-sm-8">{{ item.price | round(2) }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Price With VAT:</strong></div>
+                    <div class="col-sm-8">{{ item.get_price_with_vat | round(2) }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Stock Name:</strong></div>
+                    <div class="col-sm-8">{{ item.get_stock_name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Stock Description:</strong></div>
+                    <div class="col-sm-8">{{ item.get_stock_description }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Brand:</strong></div>
+                    <div class="col-sm-8">{% if item.type == 'nav_sys' %} {{ item.brand }} {% else %} N/A {% endif %}</div>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <a href="{{ url_for('main') }}" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

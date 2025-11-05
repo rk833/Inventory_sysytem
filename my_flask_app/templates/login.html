@@ -1,0 +1,59 @@
+{% extends "nav_login.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card mt-5">
+            <div class="card-body">
+                <h3 class="text-center">Login</h3>
+
+                <!-- Login Form -->
+                <form id="loginForm" method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                    <!-- Error message container -->
+                    <div id="error-message" class="text-danger mt-2" style="display:none;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Login form submission
+    document.getElementById('loginForm').onsubmit = function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                // Displays error message if login fails
+                return response.json().then(data => {
+                    document.getElementById('error-message').innerText = data.error;
+                    document.getElementById('error-message').style.display = 'block';
+                });
+            }
+            // Redirects to main page on successful login
+            window.location.href = '/'; 
+        })
+        .catch(error => {
+            // Logs any unexpected errors to the console
+            console.error('Error:', error);
+        });
+    };
+</script>
+{% endblock %}

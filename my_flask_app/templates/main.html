@@ -1,0 +1,121 @@
+<!-- main.html -->
+{% extends "base.html" %} {% block title %}Main Page{% endblock %} {% block
+content %}
+<h3 class="text-center">Stock Items</h3>
+
+<!-- Flash messages for displaying alerts -->
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages
+%}
+<div class="alert alert-dismissible fade show" role="alert">
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }}">
+    {{ message }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %} {% endwith %}
+
+<!-- Table for displaying stock items -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Stock Code</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Price With Vat</th>
+      <th>Stock Name</th>
+      <th>Stock Description</th>
+      <th>Brand</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Loops through each item and display its details -->
+    {% for item in items %}
+    <tr>
+      <td>{{ item.stock_code }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.price | round(2) }}</td>
+      <td>{{ item.get_price_with_vat | round(2) }}</td>
+      <td>{{ item.get_stock_name }}</td>
+      <td>{{ item.get_stock_description }}</td>
+      <td>
+        <!-- Display brand if item type is 'nav_sys', otherwise show N/A -->
+        {% if item.type == 'nav_sys' %} {{ item.brand }} {% else %} N/A {% endif
+        %}
+      </td>
+      <td>
+        <a
+          href="{{ url_for('view_item', item_id=item.id) }}"
+          class="btn btn-info btn-sm"
+          >View</a
+        >
+        <a
+          href="{{ url_for('update_item', item_id=item.id) }}"
+          class="btn btn-warning btn-sm"
+          >Edit</a
+        >
+        <form
+          action="{{ url_for('delete_item', item_id=item.id) }}"
+          method="POST"
+          style="display: inline"
+        >
+          <button
+            type="submit"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Are you sure you want to delete this item?')"
+          >
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{{ url_for('add_item') }}" class="btn btn-success">Add Item</a>
+
+<!-- Pagination controls -->
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    {% if pagination.has_prev %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{{ url_for('main', page=pagination.prev_num) }}"
+        >Previous</a
+      >
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">Previous</a>
+    </li>
+    {% endif %} {% for page_num in range(1, pagination.pages + 1) %}
+    <li class="page-item {% if page_num == pagination.page %}active{% endif %}">
+      <a class="page-link" href="{{ url_for('main', page=page_num) }}"
+        >{{ page_num }}</a
+      >
+    </li>
+    {% endfor %} {% if pagination.has_next %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{{ url_for('main', page=pagination.next_num) }}"
+        >Next</a
+      >
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}

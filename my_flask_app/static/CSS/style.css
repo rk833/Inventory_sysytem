@@ -1,0 +1,121 @@
+/* General styles */
+.navbar-custom {
+    background-color: transparent;
+    color: rgb(20, 19, 19);
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link,
+.navbar-custom .btn {
+    color: rgb(20, 19, 19);
+}
+.navbar-custom .nav-link:hover,
+.navbar-custom .btn:hover {
+    color: #ffcc00;
+}
+.navbar-toggler {
+    border-color: rgb(20, 19, 19);
+}
+.footer-custom {
+    background-color: transparent;
+    color: rgb(33, 32, 32);
+    padding: 10px 0;
+    text-align: center;
+}
+.footer-custom a {
+    color: white;
+}
+.footer-custom a:hover {
+    color: #ffcc00;
+}
+.alert {
+    margin-bottom: 20px; 
+    position: relative; 
+    z-index: 1000; 
+}
+
+/* Ensure pagination is above the footer */
+.pagination {
+    margin-top: 20px;
+    margin-bottom: 40px; 
+    text-align: center;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link,
+    .navbar-custom .btn {
+        font-size: 1rem;
+    }
+    .footer-custom {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link,
+    .navbar-custom .btn {
+        font-size: 0.9rem;
+    }
+    .footer-custom {
+        font-size: 0.8rem;
+    }
+    .container {
+        padding: 0 15px;
+    }
+    .pagination {
+        margin-bottom: 50px; 
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link,
+    .navbar-custom .btn {
+        font-size: 0.8rem;
+    }
+    .footer-custom {
+        font-size: 0.7rem;
+    }
+    .container {
+        padding: 0 10px;
+    }
+    .pagination {
+        margin-bottom: 60px; 
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link,
+    .navbar-custom .btn {
+        font-size: 0.7rem;
+    }
+    .footer-custom {
+        font-size: 0.6rem;
+    }
+    .container {
+        padding: 0 5px;
+    }
+    .pagination {
+        margin-bottom: 70px; 
+    }
+}
+
+@media (max-width: 400px) {
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link,
+    .navbar-custom .btn {
+        font-size: 0.6rem;
+    }
+    .footer-custom {
+        font-size: 0.5rem;
+    }
+    .container {
+        padding: 0 2px;
+    }
+    .pagination {
+        margin-bottom: 80px; 
+    }
+}
